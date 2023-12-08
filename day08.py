@@ -45,22 +45,17 @@ print(br)
 # PART 2
 # =============================================================================
 def lcm(numbers):
-    lcm_result = numbers[0]
+    res = numbers[0]
     for num in numbers[1:]:
-        lcm_result = abs(lcm_result * num) // math.gcd(lcm_result, num)
-    return lcm_result
+        res = abs(res * num) // math.gcd(res, num)
+    return res
 
 
-starting = []
-for node in mapp.keys():
-    if node[-1] == 'A':
-        starting.append(node)
+starting = [node for node in mapp.keys() if node[-1] == 'A']
+periods = []
 
-
-periods = [0] * len(starting)
-for n, node in enumerate(starting):
+for start in starting:
     br = 0
-    start = node
     for instruc in cycle(instructions):
         br += 1
         if instruc == 'L':
@@ -71,6 +66,6 @@ for n, node in enumerate(starting):
             break
         else:
             start = next_el
-    periods[n] = br
+    periods.append(br)
 
 print(lcm(periods))
